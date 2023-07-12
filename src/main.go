@@ -1,6 +1,7 @@
 package main
 
 import (
+	"building-microservices-youtube-episode_3/product-api/handlers"
 	"context"
 	"log"
 	"net/http"
@@ -9,8 +10,6 @@ import (
 	"time"
 
 	_ "github.com/lib/pq"
-
-	"github.com/jigarnayak1290/goLang/src/handlers"
 )
 
 func main() {
