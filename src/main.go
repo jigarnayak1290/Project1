@@ -1,15 +1,13 @@
 package main
 
 import (
-	"building-microservices-youtube-episode_3/product-api/handlers"
+	"Project1/handlers"
 	"context"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
 func main() {
