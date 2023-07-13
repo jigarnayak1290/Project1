@@ -11,14 +11,18 @@ import (
 )
 
 func main() {
-
 	l := log.New(os.Stdout, "Product-api", log.LstdFlags)
-	ph := handlers.NewProducts(l)
+	// ph := handlers.NewProducts(l)
+
+	// sm := http.NewServeMux()
+	// sm.Handle("/", ph)
+
+	userRepo, _ := handlers.NewRepository()
 
 	sm := http.NewServeMux()
-	sm.Handle("/", ph)
+	sm.Handle("/", userRepo)
 
-	//userRepo := repository.NewUserRepository()
+	//l.Println("Connection done", userRepo)
 
 	s := &http.Server{
 		Addr:         ":9090",

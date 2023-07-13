@@ -14,7 +14,8 @@ func NewProducts(l *log.Logger) *Products {
 	return &Products{l}
 }
 
-func (p *Products) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+// func (p *Products) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+func (p *Products) ServeHTTPOLD(rw http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		p.getProducts(rw, r)
 		return
