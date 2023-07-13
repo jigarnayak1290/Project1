@@ -26,7 +26,7 @@ func NewRepository() (*Repository, error) {
 
 func (p *Repository) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		p.getProducts(rw, r)
+		p.getVessal(rw, r)
 		return
 	}
 
@@ -101,8 +101,9 @@ func (p *Repository) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 }
 
 // Implement the repository methods...
-func (p *Repository) getProducts(rw http.ResponseWriter, r *http.Request) {
+func (p *Repository) getVessal(rw http.ResponseWriter, r *http.Request) {
 	//p.l.Println("Handle GET Products")
+	//lp := data.getVesselByNaccsCode("123")
 	lp := data.getVesselByNaccsCode("123")
 	//d, err := json.Marshal(lp)
 	err := lp.ToJSON(rw)

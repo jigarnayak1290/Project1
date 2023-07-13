@@ -45,10 +45,12 @@ func GetDB() *sql.DB {
 	return db
 }
 
-func getVesselByNaccsCode(NACCS_Code string) {
+func getVesselByNaccsCode(NACCS_Code string) error {
 
 	sqlStatement := `SELECT vessel_name, naccs_code, owner_name, modified_person_name, note FROM vessel WHERE naccs_code=$1;`
 
 	result := db.QueryRow(sqlStatement, NACCS_Code)
 	println("Your result :", result)
+
+	return nil
 }
