@@ -16,7 +16,7 @@ const (
 	dbname   = "postgres"
 )
 
-var db *sql.DB
+var dbObj *sql.DB
 
 // InitializeDB initializes the database connection
 func InitializeDB() error {
@@ -29,12 +29,13 @@ func InitializeDB() error {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
 		panic(err)
 	}
+	dbObj = db
 
 	fmt.Println("Successfully connected!")
 	return nil
@@ -42,15 +43,28 @@ func InitializeDB() error {
 
 // GetDB returns the database connection
 func GetDB() *sql.DB {
-	return db
+	return dbObj
 }
 
-func getVesselByNaccsCode(NACCS_Code string) error {
+// GetVessal returns the Vessal by NAVVS codes
+func GetVessal(NACCS_Code string) error {
+	//sqlStatement := `SELECT vessel_name, naccs_code, owner_name, modified_person_name, note FROM vessel WHERE naccs_code=$1;`
+	sqlStatement := `SELECT vessel_name, naccs_code FROM vessel WHERE naccs_code=$1;`
 
-	sqlStatement := `SELECT vessel_name, naccs_code, owner_name, modified_person_name, note FROM vessel WHERE naccs_code=$1;`
+	var vessel_name string
+	var naccs_code string
+	row := dbObj.QueryRow(sqlStatement, NACCS_Code)
+	switch err := row.Scan(&naccs_code, &vessel_name); err {
+	case sql.ErrNoRows:
+		fmt.Println("No rows were returned!")
+	case nil:
+		fmt.Println(naccs_code, vessel_name)
+	default:
+		fmt.Println("Panic No rows were returned!")
+		//panic(err)
 
-	result := db.QueryRow(sqlStatement, NACCS_Code)
-	println("Your result :", result)
-
+	}
 	return nil
+	//  println("Your result :", result)
+	//println("Your result :")
 }

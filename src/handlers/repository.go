@@ -102,13 +102,12 @@ func (p *Repository) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 // Implement the repository methods...
 func (p *Repository) getVessal(rw http.ResponseWriter, r *http.Request) {
-	//p.l.Println("Handle GET Products")
-	//lp := data.getVesselByNaccsCode("123")
-	lp := data.getVesselByNaccsCode("123")
+	//Println("Handle GET Products")
+	lp := data.GetVessal("D7OPBSB09")
 	//d, err := json.Marshal(lp)
-	err := lp.ToJSON(rw)
+	//err := lp.ToJSON(rw)
 
-	if err != nil {
+	if lp != nil {
 		http.Error(rw, "Unable to marshal json", http.StatusInternalServerError)
 	}
 
